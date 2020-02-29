@@ -14,12 +14,25 @@ public class MessageController {
     private int count = 4;
 
     public List<Map<String,String>> messages = new ArrayList<Map<String,String>>(){{
-        add(new HashMap<String,String>() {{ put ("id", "1"); put("text", "test"); }});
-        add(new HashMap<String,String>() {{ put ("id", "2"); put("text", "test2"); }});
-        add(new HashMap<String,String>() {{ put ("id", "3"); put("text", "test3"); }});
+        add(new HashMap<String, String>() {{
+            put("id", "1");
+            put("text", "test");
+        }});
+        add(new HashMap<String, String>() {{
+            put("id", "2");
+            put("text", "test2");
+        }});
+        add(new HashMap<String, String>() {{
+            put("id", "3");
+            put("text", "test3");
+        }});
+        add(new HashMap<String, String>() {{
+            put("id", "4");
+            put("text", "test4");
+        }});
     }};
     @GetMapping
-    public List<Map<String,String>> list(){
+    public List<Map<String,String>> list() {
         return messages;
     }
 
