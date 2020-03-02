@@ -1,4 +1,3 @@
-﻿    
      ______          ____                                           __      
     /\__  _\        /\  _`\                                        /\ \__   
     \/_/\ \/     ___\ \ \/\_\    ___     ___     ___      __    ___\ \ ,_\  
@@ -18,4 +17,3 @@
 4. ##### To run the InConnect server, run bootRun task in Gradle tasks
 5. ##### The URL used to connect to the game in a browser, is "localhost:8082".
 `>>   If you are connecting from a different computer on the network, use the IP address instead of localhost.`
-
