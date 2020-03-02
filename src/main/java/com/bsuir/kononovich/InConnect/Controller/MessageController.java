@@ -11,7 +11,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("im")
 public class MessageController {
-    private int count = 4;
+    private int count = 5;
 
     public List<Map<String,String>> messages = new ArrayList<Map<String,String>>(){{
         add(new HashMap<String, String>() {{
