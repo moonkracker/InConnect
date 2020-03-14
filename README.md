@@ -15,5 +15,5 @@
 2. ##### In IntelliJ IDEA, select "Open Project" and choose the extracted folder.
 3. ##### Once the project is opened, Refresh the Project in order to make sure that the Gradle dependencies are set up.
 4. ##### To run the InConnect server, run bootRun task in Gradle tasks
-5. ##### The URL used to connect to the game in a browser, is "localhost:8082".
+5. ##### The URL used to connect to the game in a browser, is "localhost:8080".
 `>>   If you are connecting from a different computer on the network, use the IP address instead of localhost.`
