@@ -1,71 +1,91 @@
 package com.bsuir.kononovich.InConnect.Controller;
 
-import com.bsuir.kononovich.InConnect.exceptions.NotFoundException;
+import com.bsuir.kononovich.InConnect.domain.Message;
+import com.bsuir.kononovich.InConnect.domain.Views;
+import com.bsuir.kononovich.InConnect.exceptions.MessageControllerException;
+import com.bsuir.kononovich.InConnect.repo.MessageRepo;
+import com.fasterxml.jackson.annotation.JsonView;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
 
 @RestController
-@RequestMapping("/controllers/inconnect/messages")
+@RequestMapping("/controller/messages")
+@Api(value = "/controller/messages")
 public class MessageController {
-    private int count = 5;
+    private final MessageRepo messageRepo;
 
-    public List<Map<String,String>> msgDatabase = new ArrayList<Map<String,String>>(){{
-        add(new HashMap<String, String>() {{
-            put("id", "1");
-            put("text", "first string");
-        }});
-        add(new HashMap<String, String>() {{
-            put("id", "2");
-            put("text", "second string");
-        }});
-        add(new HashMap<String, String>() {{
-            put("id", "3");
-            put("text", "third string");
-        }});
-        add(new HashMap<String, String>() {{
-            put("id", "4");
-            put("text", "fourth string");
-        }});
-    }};
+    @Autowired
+    public MessageController(MessageRepo messageRepo) {
+        this.messageRepo = messageRepo;
+    }
+
+    @ApiOperation(value = "Get list of messages", response = Iterable.class)
     @GetMapping
-    public List<Map<String,String>> list() {
-        return msgDatabase;
+    @JsonView(Views.IdName.class)
+    public List<Message> list() {
+        return messageRepo.findAll();
     }
 
+    @ApiOperation(value = "Get specific message ", response = Message.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success"),
+            @ApiResponse(code = 400, message = "Bad request"),
+            @ApiResponse(code = 401, message = "Not authorized"),
+            @ApiResponse(code = 403, message = "Forbidden"),
+            @ApiResponse(code = 500, message = "Internal server error"),
+            @ApiResponse(code = 404, message = "Not found") })
     @GetMapping("{id}")
-    public Map<String,String> GetOneMessage(@PathVariable String id){
-        return getMessage(id);
+    @JsonView(Views.FullMessage.class)
+    public Message getOne(@PathVariable("id") Message message) throws MessageControllerException, SQLException {
+        if (message == null)
+            throw new SQLException("Message not found");
+        return message;
     }
 
-    private Map<String, String> getMessage(@PathVariable String id) {
-        return msgDatabase.stream()
-                .filter(message -> message.get("id").equals(id))
-                .findFirst()
-                .orElseThrow(NotFoundException::new);
-    }
-
+    @ApiOperation(value = "Create specific message ", response = Message.class)
     @PostMapping
-    public Map<String, String > PostMessage(@RequestBody Map<String,String> message) {
-       message.put("id", String.valueOf(count++));
-       msgDatabase.add(message);
-       return message;
+    public Message create(@RequestBody Message message){
+
+        message.setCreationDate(LocalDateTime.now());
+        return messageRepo.save(message);
     }
 
+    @ApiOperation(value = "Update specific message ", response = Message.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success"),
+            @ApiResponse(code = 400, message = "Bad request"),
+            @ApiResponse(code = 401, message = "Not authorized"),
+            @ApiResponse(code = 403, message = "Forbidden"),
+            @ApiResponse(code = 500, message = "Internal server error"),
+            @ApiResponse(code = 404, message = "Not found") })
     @PutMapping("{id}")
-    public Map<String,String> PutMessage(@PathVariable String id, @RequestBody Map<String,String> message) {
-        Map <String,String> messageFromDatabase = getMessage(id);
-        messageFromDatabase.putAll(message);
-        messageFromDatabase.put("id", id);
-        return messageFromDatabase;
+    public Message update(
+            @PathVariable("id") Message messageFromDb,
+            @RequestBody Message message
+    ) {
+        BeanUtils.copyProperties(message, messageFromDb, "id");
+        return messageRepo.save(messageFromDb);
     }
 
+    @ApiOperation(value = "Delete specific message ", response = Message.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success"),
+            @ApiResponse(code = 400, message = "Bad request"),
+            @ApiResponse(code = 401, message = "Not authorized"),
+            @ApiResponse(code = 403, message = "Forbidden"),
+            @ApiResponse(code = 500, message = "Internal server error"),
+            @ApiResponse(code = 404, message = "Not found") })
     @DeleteMapping("{id}")
-    public void DeleteMessage(@PathVariable String id){
-        Map<String,String> message = getMessage(id);
-        msgDatabase.remove(message);
+    public void delete(@PathVariable("id") Message message) {
+        messageRepo.delete(message);
     }
 }

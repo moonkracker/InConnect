@@ -7,7 +7,7 @@ function getIndex(list, id) {
     return -1;
 }
 
-var messageApi = Vue.resource('/controllers/inconnect/messages{/id}');
+var messageApi = Vue.resource('/controller/messages{/id}');
 
 Vue.component('message-form', {
     props: ['messages', 'messageAttr'],

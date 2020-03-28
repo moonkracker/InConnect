@@ -1,0 +1,7 @@
+package com.bsuir.kononovich.InConnect.repo;
+
+import com.bsuir.kononovich.InConnect.domain.Message;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface MessageRepo extends JpaRepository<Message, Long> {
+}
