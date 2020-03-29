@@ -12,6 +12,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.Null;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -25,12 +26,14 @@ public class MessageController {
     public MessageController(MessageRepo messageRepo) {
         this.messageRepo = messageRepo;
     }
-
     @ApiOperation(value = "Get list of messages", response = Iterable.class)
     @GetMapping
     @JsonView(Views.IdName.class)
     public List<Message> list() {
-        return messageRepo.findAll();
+        if (messageRepo == null)
+            throw new RuntimeException("Messages not found");
+        else
+            return messageRepo.findAll();
     }
 
     @ApiOperation(value = "Get specific message ", response = Message.class)
