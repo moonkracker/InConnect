@@ -2,7 +2,6 @@ package com.bsuir.kononovich.InConnect.Controller;
 
 import com.bsuir.kononovich.InConnect.domain.Message;
 import com.bsuir.kononovich.InConnect.domain.Views;
-import com.bsuir.kononovich.InConnect.exceptions.MessageControllerException;
 import com.bsuir.kononovich.InConnect.repo.MessageRepo;
 import com.fasterxml.jackson.annotation.JsonView;
 import io.swagger.annotations.Api;
@@ -13,7 +12,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -45,10 +43,11 @@ public class MessageController {
             @ApiResponse(code = 404, message = "Not found") })
     @GetMapping("{id}")
     @JsonView(Views.FullMessage.class)
-    public Message getOne(@PathVariable("id") Message message) throws MessageControllerException, SQLException {
+    public Message getOne(@PathVariable("id") Message message) throws RuntimeException {
         if (message == null)
-            throw new SQLException("Message not found");
-        return message;
+            throw new RuntimeException("Message not found");
+        else
+            return message;
     }
 
     @ApiOperation(value = "Create specific message ", response = Message.class)

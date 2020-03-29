@@ -1,37 +1,48 @@
 package com.bsuir.kononovich.InConnect.exceptions;
 
-import javax.servlet.http.HttpServletRequest;
+import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletResponse;
 
 @ControllerAdvice
-public class ExceptionHandlerControllerAdvice {
+@Controller
+public class ExceptionHandlerControllerAdvice implements ErrorController{
+    @RequestMapping("/error")
+    public ModelAndView handleError(HttpServletResponse response) {
+        ModelAndView modelAndView = new ModelAndView();
 
-    @ExceptionHandler(MessageControllerException.class)
-    @ResponseStatus(value = HttpStatus.NOT_FOUND)
-    public @ResponseBody ExceptionResponse handleResourceNotFound(final MessageControllerException exception,
-                                                                  final HttpServletRequest request) {
+        if(response.getStatus() == HttpStatus.NOT_FOUND.value()) {
+            modelAndView.setViewName("error");
+            modelAndView.addObject("errorCode", "404");
+            modelAndView.addObject("errorMessage", "Not found");
+        }
+        else if(response.getStatus() == HttpStatus.FORBIDDEN.value()) {
+            modelAndView.setViewName("error");
+            modelAndView.addObject("errorCode", "403");
+            modelAndView.addObject("errorMessage", "Forbidden");
 
-        ExceptionResponse error = new ExceptionResponse();
-        error.setErrorMessage(exception.getMessage());
-        error.callerURL(request.getRequestURI());
+        }
+        else if(response.getStatus() == HttpStatus.INTERNAL_SERVER_ERROR.value()) {
+            modelAndView.setViewName("error");
+            modelAndView.addObject("errorCode", "500");
+            modelAndView.addObject("errorMessage", "Internal server error");
+        }
+        else {
+            modelAndView.setViewName("error");
+            modelAndView.addObject("errorCode", "Error");
+            modelAndView.addObject("errorMessage", "Undefined error");
+        }
 
-        return error;
+        return modelAndView;
     }
 
-    @ExceptionHandler(Exception.class)
-    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
-    public @ResponseBody ExceptionResponse handleException(final Exception exception,
-                                                           final HttpServletRequest request) {
-
-        ExceptionResponse error = new ExceptionResponse();
-        error.setErrorMessage(exception.getMessage());
-        error.callerURL(request.getRequestURI());
-
-        return error;
+    @Override
+    public String getErrorPath() {
+        return "/error";
     }
-
 }

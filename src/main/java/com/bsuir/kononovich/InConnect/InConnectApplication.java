@@ -16,6 +16,7 @@ public class InConnectApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(InConnectApplication.class, args);
 	}
+
 	@Bean
 	public Docket productApi() {
 		return new Docket(DocumentationType.SWAGGER_2)
