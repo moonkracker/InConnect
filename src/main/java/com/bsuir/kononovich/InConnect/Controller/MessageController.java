@@ -1,9 +1,7 @@
 package com.bsuir.kononovich.InConnect.Controller;
 
 import com.bsuir.kononovich.InConnect.domain.Message;
-import com.bsuir.kononovich.InConnect.domain.Views;
 import com.bsuir.kononovich.InConnect.repo.MessageRepo;
-import com.fasterxml.jackson.annotation.JsonView;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -11,8 +9,6 @@ import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.constraints.Null;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -28,7 +24,6 @@ public class MessageController {
     }
     @ApiOperation(value = "Get list of messages", response = Iterable.class)
     @GetMapping
-    @JsonView(Views.IdName.class)
     public List<Message> list() {
         if (messageRepo == null)
             throw new RuntimeException("Messages not found");
@@ -45,7 +40,6 @@ public class MessageController {
             @ApiResponse(code = 500, message = "Internal server error"),
             @ApiResponse(code = 404, message = "Not found") })
     @GetMapping("{id}")
-    @JsonView(Views.FullMessage.class)
     public Message getOne(@PathVariable("id") Message message) throws RuntimeException {
         if (message == null)
             throw new RuntimeException("Message not found");
@@ -56,7 +50,6 @@ public class MessageController {
     @ApiOperation(value = "Create specific message ", response = Message.class)
     @PostMapping
     public Message create(@RequestBody Message message){
-
         message.setCreationDate(LocalDateTime.now());
         return messageRepo.save(message);
     }
