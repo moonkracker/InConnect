@@ -16,10 +16,8 @@ public class Message {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
 
-
     @ApiModelProperty(notes = "ID of message",name="ID",required=true,value="id")
     private Long id;
-
 
     @ApiModelProperty(notes = "Text of message",name="Message",required=true,value="message")
     private String text;
@@ -45,9 +43,7 @@ public class Message {
         this.text = text;
     }
 
-    public LocalDateTime getCreationDate() {
-        return creationDate;
-    }
+    public LocalDateTime getCreationDate() { return creationDate; }
 
     public void setCreationDate(LocalDateTime creationDate) {
         this.creationDate = creationDate;

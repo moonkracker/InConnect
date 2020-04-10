@@ -1,19 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Сообщения</title>
-    <!-- версия для разработки, включает отображение полезных предупреждений в консоли -->
+    <title>InConnect</title>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
+    <script th:inline="javascript">var frontendData = [[${frontendData}]];</script>
     <link rel="stylesheet" href="https://unpkg.com/buefy/dist/buefy.min.css">
-    <link rel="shortcut icon" href="/images/comments-solid.ico" type="image/x-icon">
 </head>
 <body>
-<h2>Messages</h2>
 <div id="app">
 </div>
 <script src="https://unpkg.com/buefy/dist/buefy.min.js"></script>
-<script src="js/main.js"></script>
+<script src="/js/main.js"></script>
 </body>
 </html>

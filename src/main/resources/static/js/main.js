@@ -7,7 +7,7 @@ function getIndex(list, id) {
     return -1;
 }
 
-var messageApi = Vue.resource('/controller/messages{/id}');
+var messageApi = Vue.resource('/api/messages{/id}');
 
 Vue.component('message-form', {
     props: ['messages', 'messageAttr'],
@@ -91,18 +91,11 @@ Vue.component('messages-list', {
         }
     },
     template:
-        '<div style="position: relative; width: 600px;">' +
+        '<div style="position: relative; width: 900px;">' +
             '<message-form :messages="messages" :messageAttr="message" />' +
             '<message-row v-for="message in messages" :key="message.id" :message="message" ' +
             ':editMethod="editMethod" :messages="messages" />' +
         '</div>',
-    created: function() {
-        messageApi.get().then(result =>
-            result.json().then(data =>
-                data.forEach(message => this.messages.push(message))
-            )
-        )
-    },
     methods: {
         editMethod: function(message) {
             this.message = message;
@@ -112,8 +105,17 @@ Vue.component('messages-list', {
 
 var app = new Vue({
     el: '#app',
-    template: '<messages-list :messages="messages" />',
+    template:
+        '<div>'+
+            '<div v-if="!profile">Необходимо авторизоваться через <a href="/login">Google</a></div>'+
+            '<div v-else>'+
+                '<h2>Messages</h2>'+
+                '<div>{{profile.name}}&nbsp;<a href="/logout">Выйти</a></div>'+
+                '<messages-list :messages="messages" />'+
+            '</div>'+
+        '</div>',
     data: {
-        messages: []
+        messages: frontendData.messages,
+        profile: frontendData.profile
     }
 });

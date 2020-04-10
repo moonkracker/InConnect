@@ -35,6 +35,12 @@ public class ExceptionHandler implements ErrorController{
             modelAndView.addObject("errorMessage", "Internal server error");
             modelAndView.addObject("time", date);
         }
+        else if(response.getStatus() == HttpStatus.UNAUTHORIZED.value()) {
+            modelAndView.setViewName("error");
+            modelAndView.addObject("errorCode", "Error 401");
+            modelAndView.addObject("errorMessage", "Unauthorized");
+            modelAndView.addObject("time", date);
+        }
         else {
             modelAndView.setViewName("error");
             modelAndView.addObject("errorCode", "Error");

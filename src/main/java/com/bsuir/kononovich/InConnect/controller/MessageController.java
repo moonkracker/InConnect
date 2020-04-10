@@ -1,4 +1,4 @@
-package com.bsuir.kononovich.InConnect.Controller;
+package com.bsuir.kononovich.InConnect.controller;
 
 import com.bsuir.kononovich.InConnect.domain.Message;
 import com.bsuir.kononovich.InConnect.repo.MessageRepo;
@@ -8,13 +8,16 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
+
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
-@RequestMapping("/controller/messages")
-@Api(value = "/controller/messages")
+@RequestMapping("/api/messages")
+@Api(value = "/api/messages")
 public class MessageController {
     private final MessageRepo messageRepo;
 
@@ -24,9 +27,9 @@ public class MessageController {
     }
     @ApiOperation(value = "Get list of messages", response = Iterable.class)
     @GetMapping
-    public List<Message> list() {
+    public List<Message> list() throws SQLException {
         if (messageRepo == null)
-            throw new RuntimeException("Messages not found");
+            throw new SQLException("Messages not found");
         else
             return messageRepo.findAll();
     }
@@ -40,9 +43,9 @@ public class MessageController {
             @ApiResponse(code = 500, message = "Internal server error"),
             @ApiResponse(code = 404, message = "Not found") })
     @GetMapping("{id}")
-    public Message getOne(@PathVariable("id") Message message) throws RuntimeException {
+    public Message getOne(@PathVariable("id") Message message) throws SQLException {
         if (message == null)
-            throw new RuntimeException("Message not found");
+            throw new SQLException("Message not found");
         else
             return message;
     }
@@ -52,6 +55,17 @@ public class MessageController {
     public Message create(@RequestBody Message message){
         message.setCreationDate(LocalDateTime.now());
         return messageRepo.save(message);
+    }
+
+    private byte number = 0;
+    @Scheduled(fixedRate = 60 * 1000)
+    public void createSchedule() {
+        Message message = new Message();
+        number++;
+        message.setText("Automated test message №"+ number + " Date 'n' Time: " + LocalDateTime.now());
+        message.setCreationDate(LocalDateTime.now());
+        System.out.println("posted test message");
+        messageRepo.save(message);
     }
 
     @ApiOperation(value = "Update specific message ", response = Message.class)
