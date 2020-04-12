@@ -5,7 +5,7 @@
         \_\ \__/\ \/\ \ \ \L\ \/\ \L\ \/\ \/\ \/\ \/\ \/\  __//\ \__/\ \ \_ 
         /\_____\ \_\ \_\ \____/\ \____/\ \_\ \_\ \_\ \_\ \____\ \____\\ \__\
         \/_____/\/_/\/_/\/___/  \/___/  \/_/\/_/\/_/\/_/\/____/\/____/ \/__/
-        	                           Version: 0.0.3
+        	                           Version: 0.0.4
         	                           Author: Maxim Kononovich
 # InConnect
 
@@ -15,5 +15,6 @@
 2. ##### In IntelliJ IDEA, select "Open Project" and choose the extracted folder.
 3. ##### Once the project is opened, Refresh the Project in order to make sure that the Gradle dependencies are set up.
 4. ##### To run the InConnect server, run bootRun task in Gradle tasks
-5. ##### The URL used to connect to the game in a browser, is "localhost:8080".
+5. ##### Launch in a console "npm  start" for start webpack
+6. ##### The URL used to connect to the game in a browser, is "localhost:8080".
 `>>   If you are connecting from a different computer on the network, use the IP address instead of localhost.`

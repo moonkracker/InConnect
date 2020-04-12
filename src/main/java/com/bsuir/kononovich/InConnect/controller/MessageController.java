@@ -8,6 +8,8 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
 
@@ -58,7 +60,7 @@ public class MessageController {
     }
 
     private byte number = 0;
-    @Scheduled(fixedRate = 60 * 1000)
+    @Scheduled(fixedRate = 60 * 100000)
     public void createSchedule() {
         Message message = new Message();
         number++;
@@ -96,5 +98,12 @@ public class MessageController {
     @DeleteMapping("{id}")
     public void delete(@PathVariable("id") Message message) {
         messageRepo.delete(message);
+    }
+
+    @MessageMapping("/changeMessage")
+    @SendTo("/topic/activity")
+    public Message change(Message message){
+
+        return messageRepo.save(message);
     }
 }
