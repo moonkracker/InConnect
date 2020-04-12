@@ -60,7 +60,7 @@ public class MessageController {
     }
 
     private byte number = 0;
-    @Scheduled(fixedRate = 60 * 100000)
+    @Scheduled(fixedRate = 60 * 1000) //Put messages in database every minute
     public void createSchedule() {
         Message message = new Message();
         number++;
@@ -103,7 +103,6 @@ public class MessageController {
     @MessageMapping("/changeMessage")
     @SendTo("/topic/activity")
     public Message change(Message message){
-
         return messageRepo.save(message);
     }
 }
