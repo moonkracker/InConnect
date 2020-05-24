@@ -9,7 +9,7 @@ import { connect } from 'util/socks'
 import 'buefy/dist/buefy.css'
 import GoTop from '@inotom/vue-go-top';
 
-if(frontendData) {
+if(frontendData.profile) {
     connect()
 }
 
