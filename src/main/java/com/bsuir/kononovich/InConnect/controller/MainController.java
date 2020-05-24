@@ -4,7 +4,6 @@ package com.bsuir.kononovich.InConnect.controller;
 import com.bsuir.kononovich.InConnect.domain.User;
 import com.bsuir.kononovich.InConnect.domain.Views;
 import com.bsuir.kononovich.InConnect.dto.MessagePageDto;
-import com.bsuir.kononovich.InConnect.repo.MessageRepo;
 import com.bsuir.kononovich.InConnect.service.MessageService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
