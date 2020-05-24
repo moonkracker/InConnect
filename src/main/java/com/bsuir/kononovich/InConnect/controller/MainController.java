@@ -53,7 +53,7 @@ public class MainController {
         }
 
         model.addAttribute("frontendData", data);
-        model.addAttribute("isDevMode",true);
+        model.addAttribute("isDevMode",false);
 
         return "index";
     }
