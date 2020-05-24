@@ -84,12 +84,17 @@
 
 <script>
     import { mapState, mapMutations } from 'vuex'
-    import { addHandler } from "util/socks"
+    import { addHandler } from "../util/socks"
+
 
     export default {
         computed: mapState(['profile']),
         methods: {
-            ...mapMutations(['addMessageMutation', 'updateMessageMutation', 'removeMessageMutation']),
+            ...mapMutations([
+                'addMessageMutation',
+                'updateMessageMutation',
+                'removeMessageMutation'
+            ]),
             showMessages(){
                 this.$router.push('/im')
             },
@@ -99,7 +104,7 @@
         },
         created() {
             addHandler(data => {
-                if (data.objectType === 'MESSAGE') {
+                if (data.objectType === "MSG") {
                     switch (data.eventType) {
                         case 'CREATE':
                             this.addMessageMutation(data.body)

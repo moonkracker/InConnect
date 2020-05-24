@@ -89,6 +89,7 @@ public class MessageController {
             @ApiResponse(code = 404, message = "Not found") })
     @DeleteMapping("{id}")
     public void delete(@PathVariable("id") Message message) {
+
         messageService.delete(message);
     }
 }

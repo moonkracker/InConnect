@@ -3,25 +3,25 @@
         <article class="media">
             <div class="media-left">
                 <figure class="image is-64x64">
-                    <img :src="profile.userpic" alt="Image">
+                    <img :src="message.author.userpic" alt="Image">
                 </figure>
             </div>
             <div class="media-content">
                 <div class="content">
                     <p>
-                        <strong>{{profile.name}}</strong>
+                        <strong>{{message.author.name}}</strong>
                         <br>
                         {{message.text}}
                     </p>
                 </div>
                 <nav class="level is-mobile">
                     <div class="level-left">
-                        <a class="level-item" aria-label="Изменить">
+                        <a v-if="message.author.name === profile.name" class="level-item" aria-label="Изменить">
                             <span class="icon is-small">
                                 <i class="fas fa-edit" @click="edit" aria-hidden="true"></i>
                             </span>
                         </a>
-                        <a class="level-item" aria-label="Удалить">
+                        <a v-if="message.author.name === profile.name" class="level-item" aria-label="Удалить">
                             <span class="icon is-small">
                                 <i class="fas fa-trash" @click="del" aria-hidden="true"></i>
                             </span>

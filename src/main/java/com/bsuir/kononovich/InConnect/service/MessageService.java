@@ -79,6 +79,7 @@ public class MessageService {
     }
 
     private String getContent(Element element) {
+
         return element == null ? "" : element.attr("content");
     }
 

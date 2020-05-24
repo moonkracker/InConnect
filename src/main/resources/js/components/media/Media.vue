@@ -3,7 +3,7 @@
         <article class="media">
             <div class="media-left">
                 <figure class="image is-64x64">
-                    <img :src="profile.userpic" alt="Image">
+                    <img :src="message.author.userpic" alt="Image">
                 </figure>
             </div>
             <div class="media-content">
@@ -25,7 +25,7 @@
                     <div class="card-content">
                         <div class="media">
                             <div class="media-content">
-                                <p class="title is-4">{{profile.name}}</p>
+                                <p class="title is-4">{{message.author.name}}</p>
                             </div>
                         </div>
                         <div class="content">
@@ -37,7 +37,7 @@
                 </div>
                 <nav class="level is-mobile">
                     <div class="level-left">
-                        <a class="level-item" aria-label="Удалить">
+                        <a v-if="message.author.name === profile.name" class="level-item" aria-label="Удалить">
                             <span class="icon is-small">
                                 <i class="fas fa-trash" @click="del" aria-hidden="true"></i>
                             </span>
