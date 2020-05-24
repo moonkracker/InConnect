@@ -52,7 +52,7 @@ public class MainController {
         }
 
         model.addAttribute("frontendData", data);
-        model.addAttribute("isDevMode",false);
+        model.addAttribute("isDevMode",true);
 
         return "index";
     }
