@@ -5,11 +5,13 @@
         \_\ \__/\ \/\ \ \ \L\ \/\ \L\ \/\ \/\ \/\ \/\ \/\  __//\ \__/\ \ \_ 
         /\_____\ \_\ \_\ \____/\ \____/\ \_\ \_\ \_\ \_\ \____\ \____\\ \__\
         \/_____/\/_/\/_/\/___/  \/___/  \/_/\/_/\/_/\/_/\/____/\/____/ \/__/
-        	                           Version: 0.0.4
+        	                           Version: 0.0.7
         	                           Author: Maxim Kononovich
 # InConnect
 
 ### A simple social network platform.
+
+### If you want test my program just open https://in-connect-network.herokuapp.com/
 
 1. ##### First, extract the InConnect-master folder out of the JAR file.
 2. ##### In IntelliJ IDEA, select "Open Project" and choose the extracted folder.
@@ -18,3 +20,6 @@
 5. ##### Launch in a console "npm  start" for start webpack
 6. ##### The URL used to connect to the game in a browser, is "localhost:8080".
 `>>   If you are connecting from a different computer on the network, use the IP address instead of localhost.`
+
+##### In this app you can write messages. see your profile, login with google oAuth.
+##### At messages you can put hrefs and see preview of url, jr if url on youtube you can see video inside html
