@@ -20,3 +20,6 @@
 5. ##### Launch in a console "npm  start" for start webpack
 6. ##### The URL used to connect to the game in a browser, is "localhost:8080".
 `>>   If you are connecting from a different computer on the network, use the IP address instead of localhost.`
+
+##### In this app you can write messages. see your profile, login with google oAuth.
+##### At messages you can put hrefs and see preview of url, jr if url on youtube you can see video inside html
