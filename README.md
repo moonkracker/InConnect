@@ -11,7 +11,7 @@
 
 ### A simple social network platform.
 
-### If you want test my program just open https://in-connect-network.herokuapp.com/
+### If you want test my program just open https://inconnect-sn.herokuapp.com/
 
 1. ##### First, extract the InConnect-master folder out of the JAR file.
 2. ##### In IntelliJ IDEA, select "Open Project" and choose the extracted folder.
