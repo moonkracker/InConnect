@@ -9,6 +9,8 @@
         	                           Author: Maxim Kononovich
 # InConnect
 
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/563475e13ce641798d3dd7b4b2a3e1cc)](https://www.codacy.com/gh/moonkracker/InConnect/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=moonkracker/InConnect&amp;utm_campaign=Badge_Grade)
+
 ### A simple social network platform.
 
 ### If you want test my program just open https://inconnect-sn.herokuapp.com/
